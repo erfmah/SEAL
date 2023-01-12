@@ -1,0 +1,15 @@
+*.pyc
+*.swp
+backup/
+results/
+datasets_LLGF_r/
+software/
+dataset/
+__pycache__/
+baselines/
+temp*
+tmp_vis.png
+*.pt
+datasets_LLGF/
+datasets_LLGF
+datasets_LLGF/

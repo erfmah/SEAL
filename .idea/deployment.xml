@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password" remoteFilesAllowedToDisappearOnAutoupload="false" autoUploadExternalChanges="true">
+    <serverData>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/local-scratch/kia/SEAL_OGB.1" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/local-scratch/kia/SEAL_OGB.1" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/local-scratch/kia/SEAL_OGB.1/dataset" />
+            <excludedPath path="/local-scratch/kia/SEAL_OGB.1/results" />
+            <excludedPath path="/local-scratch/kia/SEAL_OGB.1/datasets_LLGF_r" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (1)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (10)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/local-scratch/kia/SEAL_OGB.1" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (11)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/local-scratch/kia/SEAL_OGB.1" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (2)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (3)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (4)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (5)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (6)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (7)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (8)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="kzahirni@cs-cl-09.cmpt.sfu.ca:22 password (9)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
