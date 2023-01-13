@@ -47,14 +47,14 @@ def load_citeseer():
     names = ['x', 'y', 'tx', 'ty', 'allx', 'ally', 'graph']
     objects = []
     for i in range(len(names)):
-        with open("/localhome/pnaddaf/Desktop/parmis/inductive_learning/citeseer/ind.{}.{}".format(dataSet, names[i]), 'rb') as f:
+        with open("./datasets/citeseer/ind.{}.{}".format(dataSet, names[i]), 'rb') as f:
             if sys.version_info > (3, 0):
                 objects.append(pkl.load(f, encoding='latin1'))
             else:
                 objects.append(pkl.load(f))
 
     x, y, tx, ty, allx, ally, graph = tuple(objects)
-    test_idx_reorder = parse_index_file("/localhome/pnaddaf/Desktop/parmis/inductive_learning/citeseer/ind.{}.test.index".format(dataSet))
+    test_idx_reorder = parse_index_file("./datasets/citeseer/ind.{}.test.index".format(dataSet))
     test_idx_range = np.sort(test_idx_reorder)
 
 
@@ -83,8 +83,8 @@ def load_citeseer():
 
 def load_cora():
     dataSet='cora'
-    cora_content_file = '/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/cora/cora.content'
-    cora_cite_file = '/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/cora/cora.cites'
+    cora_content_file = './datasets/cora/cora.content'
+    cora_cite_file = './datasets/cora/cora.cites'
 
     feat_data = []
     labels = [] # label sequence of node
@@ -120,7 +120,7 @@ def load_cora():
 
 def load_ACM():
     obj = []
-    adj_file_name = "/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/ACM/edges.pkl"
+    adj_file_name = "./datasets/ACM/edges.pkl"
 
     with open(adj_file_name, 'rb') as f:
             obj.append(pkl.load(f))
@@ -131,7 +131,7 @@ def load_ACM():
 
 
     obj = []
-    with open("/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/ACM/node_features.pkl", 'rb') as f:
+    with open("./datasets/ACM/node_features.pkl", 'rb') as f:
         obj.append(pkl.load(f))
     feature = sp.csr_matrix(obj[0]).todense()
 
@@ -147,7 +147,7 @@ def load_ACM():
 
 
 def load_IMDB():
-    adj_file_name = "/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/IMDB/edges.pkl"
+    adj_file_name = "./datasets/IMDB/edges.pkl"
 
     obj = []
     with open(adj_file_name, 'rb') as f:
@@ -159,13 +159,12 @@ def load_IMDB():
         adj +=matrix
     
     obj = []
-    with open("/localhome/pnaddaf/Desktop/parmis/inductive_learning/inductive_learning/IMDB/node_features.pkl", 'rb') as f:
+    with open("./datasets/IMDB/node_features.pkl", 'rb') as f:
         obj.append(pkl.load(f))
     feature = sp.csr_matrix(obj[0])
     
     return feature.todense(), adj
     
-
 def load_photos():
     path = os.getcwd()
     data = Amazon(path, 'photo')[0]
@@ -182,6 +181,17 @@ def load_photos():
 
 
 def load_computers():
+    path = os.getcwd()
+    data = Amazon(path, 'computers')[0]
+    features = data['x'].cpu().detach().numpy()
+    adj = np.eye(data['x'].shape[0], dtype=int)
+    adj[data.edge_index[0], data.edge_index[1]]= 1
+
+
+    features = sp.csr_matrix(features)
+    adj = sp.csr_matrix(adj)
+    return features, adj
+        
     path = os.getcwd()
     data = Amazon(path, 'computers')[0]
     features = data['x'].cpu().detach().numpy()
