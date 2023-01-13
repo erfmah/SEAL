@@ -22,6 +22,9 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from torch_geometric.utils.convert import to_scipy_sparse_matrix
 import argparse
+from torch_geometric.datasets import Amazon
+import os
+
 
 parser = argparse.ArgumentParser(description=' ')
 parser.add_argument('--dataset', type=str, default='photos')
@@ -164,8 +167,12 @@ def load_IMDB():
     
 
 def load_photos():
-    features = np.load("/localhome/pnaddaf/Desktop/parmis/inductive_learning/photos/features.npy")
-    adj = np.load("/localhome/pnaddaf/Desktop/parmis/inductive_learning/photos/adj.npy")
+    path = os.getcwd()
+    data = Amazon(path, 'photo')[0]
+    features = data['x'].cpu().detach().numpy()
+    adj = np.eye(data['x'].shape[0], dtype=int)
+    adj[data.edge_index[0], data.edge_index[1]]= 1
+
 
     features = sp.csr_matrix(features)
     adj = sp.csr_matrix(adj)
@@ -175,8 +182,13 @@ def load_photos():
 
 
 def load_computers():
-    features = np.load("/localhome/pnaddaf/Desktop/parmis/inductive_learning/computers/features.npy")
-    adj = np.load("/localhome/pnaddaf/Desktop/parmis/inductive_learning/computers/adj.npy")
+    path = os.getcwd()
+    data = Amazon(path, 'computers')[0]
+    features = data['x'].cpu().detach().numpy()
+    adj = np.eye(data['x'].shape[0], dtype=int)
+    adj[data.edge_index[0], data.edge_index[1]]= 1
+
+
     features = sp.csr_matrix(features)
     adj = sp.csr_matrix(adj)
     return features, adj
