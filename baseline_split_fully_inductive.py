@@ -158,7 +158,7 @@ def load_IMDB():
     
 def load_photos():
     path = os.getcwd()
-    data = Amazon(path, 'photos')[0]
+    data = Amazon(path, 'photo')[0]
     features = data['x'].cpu().detach().numpy()
     adj = np.eye(data['x'].shape[0], dtype=int)
     adj[data.edge_index[0], data.edge_index[1]]= 1
