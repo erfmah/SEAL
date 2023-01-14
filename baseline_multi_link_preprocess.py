@@ -24,7 +24,7 @@ from torch_geometric.utils.convert import to_scipy_sparse_matrix
 import argparse
 from torch_geometric.datasets import Amazon
 import os
-
+from torch_geometric.datasets import Amazon
 
 parser = argparse.ArgumentParser(description=' ')
 parser.add_argument('--dataset', type=str, default='photos')
