@@ -829,5 +829,5 @@ torch.save({
            'epoch': 10,
            'model_state_dict': model.state_dict(),
            'optimizer_state_dict': optimizer.state_dict()
-           }, '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/model' + args.dataset + '.pth')
+           }, './model' + args.dataset + '.pth')
 
