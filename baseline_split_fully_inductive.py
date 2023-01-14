@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser(description=' ')
 parser.add_argument('--dataset', type=str, default='photos')
 parser.add_argument('--semi_inductive', type=str, default=False)
 args = parser.parse_args()
-save_path = '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/datasets_LLGF/'
+save_path = './datasets_LLGF/'
 input_dataset = args.dataset
 output_dataset = input_dataset+ '_new'
 ind = ''

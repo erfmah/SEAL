@@ -498,7 +498,7 @@ elif args.dataset.startswith('LLGF'):
         split_edge['test']['edge_neg'] = data.test_neg_edge_index.t()
         return split_edge
 
-    path  = osp.join('/localhome/pnaddaf/Desktop/parmis/SEAl_miror/datasets_LLGF', args.dataset)
+    path  = osp.join('./datasets_LLGF', args.dataset)
     # read the data with same split of LLFG
     train_pos, val_pos,test_pos,val_neg,test_neg,x = datasetsSnapShot(path)
     #all edges in graph
@@ -635,7 +635,7 @@ if False:  # visualize some graphs
     import matplotlib.pyplot as plt
     loader = DataLoader(train_dataset, batch_size=1, shuffle=False)
     i = 0
-    save_folder = '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/visualizations/'
+    save_folder = './visualizations/'
     for g in loader:
         
         f = plt.figure(figsize=(20, 20))

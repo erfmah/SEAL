@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(description=' ')
 parser.add_argument('--dataset', type=str, default='photos')
 parser.add_argument('--semi_inductive', type=str, default=False)
 args = parser.parse_args()
-save_path = '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/datasets_LLGF/'
+save_path = './datasets_LLGF/'
 input_dataset = args.dataset
 output_dataset = input_dataset+ '_new'
 ind = ''
@@ -527,7 +527,7 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
     for i in test_nodes:
         if np.count_nonzero(adj[i])>1 and counter<100:
             counter +=1
-            print(counter)
+            #print(counter)
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_x.npy', np.array(feat_data))
             pos_test_nodes = np.nonzero(adj[i])[1]
             neg_test_nodes = np.argwhere(adj[i] == 0)[:,1]
@@ -550,7 +550,7 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
             break
         elif np.count_nonzero(adj[i])>0 and counter<100:
             counter +=1
-            print(counter)
+            #print(counter)
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_x.npy', np.array(feat_data))
             pos_test_nodes = np.nonzero(adj[i])[1]
             neg_test_nodes = np.argwhere(adj[i] == 0)[:,1]
