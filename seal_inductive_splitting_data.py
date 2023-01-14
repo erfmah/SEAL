@@ -12,6 +12,7 @@ from tqdm import tqdm
 import pdb
 import csv
 
+
 import numpy as np
 from sklearn.metrics import roc_auc_score, accuracy_score, confusion_matrix,average_precision_score, recall_score, precision_score
 import scipy.sparse as ssp
@@ -306,7 +307,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
-parser.add_argument('--dataset', type=str, default='LLGF_photos_new_ind')
+parser.add_argument('--dataset', type=str, default='LLGF_cora_new_ind')
 parser.add_argument('--fast_split', action='store_true', 
                     help="for large custom datasets (not OGB), do a fast data split")
 # GNN settings
@@ -449,7 +450,7 @@ elif args.dataset.startswith('LLGF'):
         split_edge['test']['edge_neg'] = data.test_neg_edge_index.t()
         return split_edge
 
-    path  = osp.join('/localhome/pnaddaf/Desktop/parmis/SEAl_miror/datasets_LLGF', args.dataset)
+    path  = osp.join('./datasets_LLGF', args.dataset)
     # read the data with same split of LLFG
     train_pos, val_pos,test_pos,val_neg,test_neg,x = datasetsSnapShot(path)
     #all edges in graph
@@ -579,6 +580,7 @@ train_dataset = eval(dataset_class)(
     max_nodes_per_hop=args.max_nodes_per_hop, 
     directed=directed, 
 ) 
+os.system("rm -rf ./datasets_LLGF_r/*")
 if False:  # visualize some graphs
     import networkx as nx
     from torch_geometric.utils import to_networkx
@@ -587,7 +589,7 @@ if False:  # visualize some graphs
     import matplotlib.pyplot as plt
     loader = DataLoader(train_dataset, batch_size=1, shuffle=False)
     i = 0
-    save_folder = '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/visualizations/'
+    save_folder = './visualizations/'
     for g in loader:
         
         f = plt.figure(figsize=(20, 20))
@@ -617,6 +619,7 @@ val_dataset = eval(dataset_class)(
     max_nodes_per_hop=args.max_nodes_per_hop, 
     directed=directed, 
 )
+os.system("rm -rf ./datasets_LLGF_r/*")
 dataset_class = 'SEALDynamicDataset' if args.dynamic_test else 'SEALDataset'
 test_dataset = eval(dataset_class)(
     0,
@@ -632,6 +635,7 @@ test_dataset = eval(dataset_class)(
     max_nodes_per_hop=args.max_nodes_per_hop, 
     directed=directed, 
 )
+os.system("rm -rf ./datasets_LLGF_r/*")
 
 max_z = 1000  # set a large max_z so that every z has embeddings to look up
 
@@ -713,7 +717,7 @@ for run in range(args.runs):
                     max_nodes_per_hop=args.max_nodes_per_hop, 
                     directed=directed, 
                 ) 
-                
+                os.system("rm -rf ./datasets_LLGF_r/*")
                 dataset_class = 'SEALDynamicDataset' if args.dynamic_val else 'SEALDataset'
                 val_dataset = eval(dataset_class)(
                     sub_list,
@@ -729,6 +733,7 @@ for run in range(args.runs):
                     max_nodes_per_hop=args.max_nodes_per_hop, 
                     directed=directed, 
                 )
+                os.system("rm -rf ./datasets_LLGF_r/*")
                 dataset_class = 'SEALDynamicDataset' if args.dynamic_test else 'SEALDataset'
                 test_dataset = eval(dataset_class)(
                     sub_list,
@@ -744,7 +749,7 @@ for run in range(args.runs):
                     max_nodes_per_hop=args.max_nodes_per_hop, 
                     directed=directed, 
                 )
-                
+                os.system("rm -rf ./datasets_LLGF_r/*")
                 max_z = 1000  # set a large max_z so that every z has embeddings to look up
                 
                 train_loader = DataLoader(train_dataset, batch_size=args.batch_size, 

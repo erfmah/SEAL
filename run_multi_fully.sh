@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-for j in "citeseer"
+for j in "cora" "ACM"  "IMDB" "citeseer"
 do
 rm -r "./datasets_LLGF/LLGF_${j}_new_ind"
 rm -r "./datasets_LLGF/LLGF_${j}_new"

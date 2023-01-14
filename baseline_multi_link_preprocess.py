@@ -24,10 +24,10 @@ from torch_geometric.utils.convert import to_scipy_sparse_matrix
 import argparse
 from torch_geometric.datasets import Amazon
 import os
-
+from torch_geometric.datasets import Amazon
 
 parser = argparse.ArgumentParser(description=' ')
-parser.add_argument('--dataset', type=str, default='photos')
+parser.add_argument('--dataset', type=str, default='computers')
 parser.add_argument('--semi_inductive', type=str, default=False)
 args = parser.parse_args()
 save_path = './datasets_LLGF/'
