@@ -179,7 +179,7 @@ def extract_enclosing_subgraphs_sublist(sub_list, link_index, A, x, y, num_hops,
     
     data_list = []
     data = link_index.t().tolist()
-    for src, dst in tqdm(data[int((sub_list/50)*len(data)):int(((sub_list+1)/50)*len(data))]):
+    for src, dst in tqdm(data[int((sub_list/100)*len(data)):int(((sub_list+1)/100)*len(data))]):
         tmp = k_hop_subgraph(src, dst, num_hops, A, ratio_per_hop, 
                              max_nodes_per_hop, node_features=x, y=y, 
                              directed=directed, A_csc=A_csc)
