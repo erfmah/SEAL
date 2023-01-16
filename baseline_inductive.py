@@ -92,11 +92,11 @@ class SEALDataset(InMemoryDataset):
                70, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
            neg_list = extract_enclosing_subgraphs_sublist(
-               neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+               70, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc) 
         else:
             pos_list = extract_enclosing_subgraphs(
-                70, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+                pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
                 self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
             neg_list = extract_enclosing_subgraphs(
                 neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
