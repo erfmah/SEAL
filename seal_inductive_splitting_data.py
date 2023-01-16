@@ -35,7 +35,6 @@ warnings.simplefilter('ignore', SparseEfficiencyWarning)
 from utils import *
 from models import *
 
-
 class SEALDataset(InMemoryDataset):
     def __init__(self, sub_list,  root, data, split_edge, num_hops, percent=100, split='train', 
                  use_coalesce=False, node_label='drnl', ratio_per_hop=1.0, 
@@ -89,14 +88,29 @@ class SEALDataset(InMemoryDataset):
             A_csc = None
         
         # Extract enclosing subgraphs for pos and neg edges
-        pos_list = extract_enclosing_subgraphs_sublist(
-            self.sub_list, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
-            self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
-        neg_list = extract_enclosing_subgraphs_sublist(
-            self.sub_list, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
-            self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
-
+        if self.sub_list==-1:
+            pos_list = extract_enclosing_subgraphs(
+                pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+            neg_list = extract_enclosing_subgraphs(
+                neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+        else:
+            print("extracting pos edges")
+            pos_list = extract_enclosing_subgraphs_sublist(
+                self.sub_list, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+            print("extracting neg edges")
+            neg_list = extract_enclosing_subgraphs_sublist(
+                self.sub_list, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+            
+        
+        
         torch.save(self.collate(pos_list + neg_list), self.processed_paths[0])
+        self.data, self.slices = self.collate(pos_list + neg_list)
+
+            
         del pos_list, neg_list
 
 
@@ -307,7 +321,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
-parser.add_argument('--dataset', type=str, default='LLGF_cora_new_ind')
+parser.add_argument('--dataset', type=str, default='LLGF_computers_new_semi_ind_4')
 parser.add_argument('--fast_split', action='store_true', 
                     help="for large custom datasets (not OGB), do a fast data split")
 # GNN settings
@@ -622,7 +636,7 @@ val_dataset = eval(dataset_class)(
 os.system("rm -rf ./datasets_LLGF_r/*")
 dataset_class = 'SEALDynamicDataset' if args.dynamic_test else 'SEALDataset'
 test_dataset = eval(dataset_class)(
-    0,
+    -1,
     path, 
     data, 
     split_edge, 
@@ -700,7 +714,8 @@ for run in range(args.runs):
             checkpoint = torch.load('modelLLGF_computers_new.pth')
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        for sub_list in range(100):
+        for sub_list in range(50):
+            print("*****"+str(sub_list)+"/100*****")
             if not sub_list == 0:
                 dataset_class = 'SEALDynamicDataset' if args.dynamic_train else 'SEALDataset'
                 train_dataset = eval(dataset_class)(
@@ -736,7 +751,7 @@ for run in range(args.runs):
                 os.system("rm -rf ./datasets_LLGF_r/*")
                 dataset_class = 'SEALDynamicDataset' if args.dynamic_test else 'SEALDataset'
                 test_dataset = eval(dataset_class)(
-                    sub_list,
+                    -1,
                     path, 
                     data, 
                     split_edge, 

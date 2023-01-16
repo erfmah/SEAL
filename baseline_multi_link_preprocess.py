@@ -525,7 +525,7 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
     adj = create_adj(feat_data, test_edges)
     counter = 0
     for i in test_nodes:
-        if np.count_nonzero(adj[i])>1 and counter<100:
+        if np.count_nonzero(adj[i])>1 and counter<50:
             counter +=1
             #print(counter)
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_x.npy', np.array(feat_data))
@@ -536,6 +536,8 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
             pos_test_edges = np.stack((i_node, pos_test_nodes), axis=1)
             neg_test_edges = np.stack((i_node, neg_test_nodes), axis=1)
             inductive_train_edges = np.array(list(set(map(tuple, inductive_train_edges)) - set(map(tuple, pos_test_edges))))
+            
+            np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_train_pos.npy', np.array(inductive_train_edges))
             
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_test_pos.npy', np.array(pos_test_edges))
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_test_neg.npy', np.array(neg_test_edges))
@@ -548,7 +550,7 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
     for i in test_nodes:
         if counter == 100:
             break
-        elif np.count_nonzero(adj[i])>0 and counter<100:
+        elif np.count_nonzero(adj[i])>0 and counter<50:
             counter +=1
             #print(counter)
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_x.npy', np.array(feat_data))
@@ -560,6 +562,8 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
             neg_test_edges = np.stack((i_node, neg_test_nodes), axis=1)
             inductive_train_edges = np.array(list(set(map(tuple, inductive_train_edges)) - set(map(tuple, pos_test_edges))))
             
+            np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_train_pos.npy', np.array(inductive_train_edges))
+ 
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_test_pos.npy', np.array(pos_test_edges))
             np.save(save_path + 'LLGF_' + output_dataset + '_ind_' + str(counter) +'_test_neg.npy', np.array(neg_test_edges))
             
