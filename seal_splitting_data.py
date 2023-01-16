@@ -367,7 +367,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
-parser.add_argument('--dataset', type=str, default='LLGF_computers_new')
+parser.add_argument('--dataset', type=str, default='LLGF_cora_new')
 parser.add_argument('--fast_split', action='store_true', 
                     help="for large custom datasets (not OGB), do a fast data split")
 # GNN settings
@@ -388,7 +388,7 @@ parser.add_argument('--use_edge_weight', action='store_true',
                     help="whether to consider edge weight in GNN")
 # Training settings
 parser.add_argument('--lr', type=float, default=0.0001)
-parser.add_argument('--epochs', type=int, default=1)
+parser.add_argument('--epochs', type=int, default=10)
 parser.add_argument('--runs', type=int, default=1)
 parser.add_argument('--train_percent', type=float, default=100)
 parser.add_argument('--val_percent', type=float, default=100)
@@ -509,7 +509,7 @@ elif args.dataset.startswith('LLGF'):
         split_edge['test']['edge_neg'] = data.test_neg_edge_index.t()
         return split_edge
 
-    path  = osp.join('/localhome/pnaddaf/Desktop/parmis/SEAl_miror/datasets_LLGF', args.dataset)
+    path  = osp.join('./datasets_LLGF', args.dataset)
     # read the data with same split of LLFG
     train_pos, val_pos,test_pos,val_neg,test_neg,x = datasetsSnapShot(path)
     #all edges in graph
@@ -844,7 +844,7 @@ for sub_list in range(100):
            'epoch': 10,
            'model_state_dict': model.state_dict(),
            'optimizer_state_dict': optimizer.state_dict()
-           }, '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/model' + args.dataset + '.pth')
+           }, './model' + args.dataset + '.pth')
 
 
 
@@ -862,5 +862,5 @@ torch.save({
            'epoch': 10,
            'model_state_dict': model.state_dict(),
            'optimizer_state_dict': optimizer.state_dict()
-           }, '/localhome/pnaddaf/Desktop/parmis/SEAl_miror/model' + args.dataset + '.pth')
+           }, './model' + args.dataset + '.pth')
 
