@@ -50,7 +50,7 @@ class SEALDataset(InMemoryDataset):
         self.max_nodes_per_hop = max_nodes_per_hop
         self.directed = directed
         super(SEALDataset, self).__init__(root)
-        self.data, self.slices = torch.load(self.processed_paths[0])
+        #self.data, self.slices = torch.load(self.processed_paths[0])
 
     @property
     def processed_file_names(self):
@@ -94,7 +94,8 @@ class SEALDataset(InMemoryDataset):
             neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
             self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
 
-        torch.save(self.collate(pos_list + neg_list), self.processed_paths[0])
+        #torch.save(self.collate(pos_list + neg_list), self.processed_paths[0])
+        self.data, self.slices = self.collate(pos_list + neg_list)
         del pos_list, neg_list
 
 
@@ -316,7 +317,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
 #if fully
-parser.add_argument('--dataset', type=str, default='LLGF_photos_new_ind')
+parser.add_argument('--dataset', type=str, default='LLGF_cora_new_ind')
 #if semi
 #parser.add_argument('--dataset', type=str, default='LLGF_cora_new_semi_ind')
 
