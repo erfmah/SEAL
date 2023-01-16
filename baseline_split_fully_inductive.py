@@ -21,7 +21,7 @@ from torch_geometric.datasets import Amazon
 
 parser = argparse.ArgumentParser(description=' ')
 parser.add_argument('--dataset', type=str, default='cora')
-parser.add_argument('--semi_inductive', type=str, default=False)
+parser.add_argument('--semi_inductive', type=str, default=True)
 parser.add_argument('--transductive', type=str, default=False)
 args = parser.parse_args()
 save_path = './datasets_LLGF/'
