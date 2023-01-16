@@ -89,10 +89,10 @@ class SEALDataset(InMemoryDataset):
         # Extract enclosing subgraphs for pos and neg edges
         if self.split=='train':
            pos_list = extract_enclosing_subgraphs_sublist(
-               90, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+               50, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
            neg_list = extract_enclosing_subgraphs_sublist(
-               90, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+               50, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc) 
         else:
             pos_list = extract_enclosing_subgraphs(
@@ -325,7 +325,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
 #if fully
-parser.add_argument('--dataset', type=str, default='LLGF_cora_new_semi_ind')
+parser.add_argument('--dataset', type=str, default='LLGF_photos_new_semi_ind')
 #if semi
 #parser.add_argument('--dataset', type=str, default='LLGF_cora_new_semi_ind')
 
