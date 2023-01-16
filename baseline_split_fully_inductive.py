@@ -20,14 +20,21 @@ import os
 from torch_geometric.datasets import Amazon
 
 parser = argparse.ArgumentParser(description=' ')
-parser.add_argument('--dataset', type=str, default='photos')
+parser.add_argument('--dataset', type=str, default='cora')
 parser.add_argument('--semi_inductive', type=str, default=False)
+parser.add_argument('--transductive', type=str, default=False)
 args = parser.parse_args()
 save_path = './datasets_LLGF/'
 input_dataset = args.dataset
 output_dataset = input_dataset+ '_new'
 ind = ''
 semi_inductive = args.semi_inductive
+transductive = args.transductive
+if args.semi_inductive=="True":
+    transductive  = True
+elif semi_inductive=="False":
+    transductive = False
+    
 if args.semi_inductive=="True":
     semi_inductive  = True
 elif semi_inductive=="False":
@@ -490,24 +497,25 @@ def return_trans_ind(feat_data, adjacency_matrix, output_dataset):
     print("Getting false edges ind")
     inductive_train_edges_false, inductive_test_edges_false, inductive_val_edges_false = get_false_edges(inductive_test_edges, inductive_train_edges, inductive_valid_edges, ind_nodes )
 
-    print("Getting false edges trans")
-    #transductive_train_edges_false, transductive_test_edges_false, transductive_val_edges_false = get_false_edges(transductive_test_edges, transductive_train_edges, transductive_valid_edges, trans_nodes )
+    if (transductive):
+        print("Getting false edges trans")
+        transductive_train_edges_false, transductive_test_edges_false, transductive_val_edges_false = get_false_edges(transductive_test_edges, transductive_train_edges, transductive_valid_edges, trans_nodes )
 
     
     print("Saving to files")
-    # np.save(save_path + 'LLGF_' + output_dataset + '_x.npy', np.array(feat_data))
+    if (transductive):
+        np.save(save_path + 'LLGF_' + output_dataset + '_x.npy', np.array(feat_data))
+        
+        np.save(save_path + 'LLGF_' + output_dataset + '_train_pos.npy', np.array(transductive_train_edges))
+        
+        np.save(save_path + 'LLGF_' + output_dataset + '_test_pos.npy', np.array(transductive_test_edges))
+        np.save(save_path + 'LLGF_' + output_dataset + '_test_neg.npy', np.array(transductive_test_edges_false))
+        
+        np.save(save_path + 'LLGF_' + output_dataset +  '_val_pos.npy', np.array(transductive_valid_edges))
+        np.save(save_path + 'LLGF_' + output_dataset + '_val_neg.npy', np.array(transductive_val_edges_false))
+    
+    
     np.save(save_path + 'LLGF_' + output_dataset + '_ind_x.npy', np.array(feat_data))
-    
-    # np.save(save_path + 'LLGF_' + output_dataset + '_train_pos.npy', np.array(transductive_train_edges))
-    
-    
-    # np.save(save_path + 'LLGF_' + output_dataset + '_test_pos.npy', np.array(transductive_test_edges))
-    # np.save(save_path + 'LLGF_' + output_dataset + '_test_neg.npy', np.array(transductive_test_edges_false))
-    
-    # np.save(save_path + 'LLGF_' + output_dataset +  '_val_pos.npy', np.array(transductive_valid_edges))
-    # np.save(save_path + 'LLGF_' + output_dataset + '_val_neg.npy', np.array(transductive_val_edges_false))
-    
-    
     np.save(save_path + 'LLGF_' + output_dataset + '_ind_train_pos.npy', np.array(inductive_train_edges))
     
     np.save(save_path + 'LLGF_' + output_dataset + '_ind_test_pos.npy', np.array(inductive_test_edges))
