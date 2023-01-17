@@ -87,20 +87,20 @@ class SEALDataset(InMemoryDataset):
             A_csc = None
         
         # Extract enclosing subgraphs for pos and neg edges
-        if self.split=='train':
-           pos_list = extract_enclosing_subgraphs_sublist(
-               50, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
-               self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
-           neg_list = extract_enclosing_subgraphs_sublist(
-               50, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
-               self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc) 
-        else:
-            pos_list = extract_enclosing_subgraphs(
-                pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
-                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
-            neg_list = extract_enclosing_subgraphs(
-                neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
-                self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+        # if self.split=='train':
+        #    pos_list = extract_enclosing_subgraphs_sublist(
+        #        70, pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+        #        self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+        #    neg_list = extract_enclosing_subgraphs_sublist(
+        #        70, neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+        #        self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc) 
+        # else:
+        pos_list = extract_enclosing_subgraphs(
+            pos_edge, A, self.data.x, 1, self.num_hops, self.node_label, 
+            self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
+        neg_list = extract_enclosing_subgraphs(
+            neg_edge, A, self.data.x, 0, self.num_hops, self.node_label, 
+            self.ratio_per_hop, self.max_nodes_per_hop, self.directed, A_csc)
 
         torch.save(self.collate(pos_list + neg_list), self.processed_paths[0])
         self.data, self.slices = self.collate(pos_list + neg_list)
@@ -325,7 +325,7 @@ def evaluate_auc(val_pred, val_true, test_pred, test_true):
 # Data settings
 parser = argparse.ArgumentParser(description='OGBL (SEAL)')
 #if fully
-parser.add_argument('--dataset', type=str, default='LLGF_photos_new_semi_ind')
+parser.add_argument('--dataset', type=str, default='LLGF_computers_new_semi_ind')
 #if semi
 #parser.add_argument('--dataset', type=str, default='LLGF_cora_new_semi_ind')
 
@@ -354,10 +354,10 @@ parser.add_argument('--runs', type=int, default=1)
 parser.add_argument('--train_percent', type=float, default=100)
 parser.add_argument('--val_percent', type=float, default=100)
 parser.add_argument('--test_percent', type=float, default=100)
-parser.add_argument('--dynamic_train', action='store_true', 
+parser.add_argument('--dynamic_train', action='store_true',  default = True,
                     help="dynamically extract enclosing subgraphs on the fly")
-parser.add_argument('--dynamic_val', action='store_true')
-parser.add_argument('--dynamic_test', action='store_true')
+parser.add_argument('--dynamic_val', action='store_true', default = True)
+parser.add_argument('--dynamic_test', action='store_true', default = True)
 parser.add_argument('--num_workers', type=int, default=16, 
                     help="number of workers for dynamic mode; 0 if not dynamic")
 parser.add_argument('--train_node_embedding', action='store_true', 
