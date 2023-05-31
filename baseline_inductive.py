@@ -705,17 +705,17 @@ for run in range(args.runs):
         print("Loading saved model")
         #checkpoint = torch.load('/localhome/pnaddaf/Desktop/parmis/SEAl_miror/model' + args.dataset[:-6] + '.pth')
         if "cora" in args.dataset:
-            checkpoint = torch.load('modelLLGF_cora_new.pth')
+            checkpoint = torch.load('modelLLGF_cora_new_ind.pth')
         elif "ACM" in args.dataset:
-            checkpoint = torch.load('modelLLGF_ACM_new.pth')       
+            checkpoint = torch.load('modelLLGF_ACM_new_ind.pth')       
         elif "IMDB" in args.dataset:
-            checkpoint = torch.load('modelLLGF_IMDB_new.pth')       
+            checkpoint = torch.load('modelLLGF_IMDB_new_ind.pth')       
         elif "citeseer" in args.dataset:
-            checkpoint = torch.load('modelLLGF_citeseer_new.pth')
+            checkpoint = torch.load('modelLLGF_citeseer_new_ind.pth')
         elif "photos" in args.dataset:
-            checkpoint = torch.load('modelLLGF_photos_new.pth')
+            checkpoint = torch.load('modelLLGF_photos_new_ind.pth')
         elif "computers" in args.dataset:
-            checkpoint = torch.load('modelLLGF_computers_new.pth')
+            checkpoint = torch.load('modelLLGF_computers_new_ind.pth')
 
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
